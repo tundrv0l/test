@@ -1,9 +1,10 @@
 # Test Backend #
 
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
+import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='../my-react-app/build', static_url_path='/')
 CORS(app)
 
 @app.route('/submit', methods=['POST'])
@@ -21,6 +22,15 @@ def report_issue():
     email = data.get('email')
     response_message = f"Thank you for reporting the issue. We will contact you at {email} as soon as possible."
     return jsonify({'message': response_message})
+
+
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
+@app.route('/<path:path>')
+def serve_static(path):
+    return send_from_directory(app.static_folder, path)
 
 def _calculate_fibbonacci(integer):
     if integer == 0:
