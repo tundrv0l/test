@@ -29,7 +29,7 @@ def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
 @app.route('/<path:path>')
-def serve_static(path):
+def static_proxy(path):
     return send_from_directory(app.static_folder, path)
 
 def _calculate_fibbonacci(integer):
