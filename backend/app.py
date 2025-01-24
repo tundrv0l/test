@@ -2,6 +2,7 @@
 
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
+import os
 
 app = Flask(__name__, static_folder='../my-react-app/build', static_url_path='/')
 CORS(app)
@@ -40,4 +41,5 @@ def _calculate_fibbonacci(integer):
         return _calculate_fibbonacci(integer - 1) + _calculate_fibbonacci(integer - 2)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
