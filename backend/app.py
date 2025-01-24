@@ -4,7 +4,7 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 
-app = Flask(__name__, static_folder='../my-react-app/build', static_url_path='/')
+app = Flask(__name__, static_folder='../my-react-app\build', static_url_path='/')
 CORS(app)
 
 @app.route('/submit', methods=['POST'])
@@ -23,14 +23,13 @@ def report_issue():
     response_message = f"Thank you for reporting the issue. We will contact you at {email} as soon as possible."
     return jsonify({'message': response_message})
 
-
-@app.route('/')
-def serve():
-    return send_from_directory(app.static_folder, 'index.html')
-
+@app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
-def static_proxy(path):
-    return send_from_directory(app.static_folder, path)
+def serve(path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+        return send_from_directory(app.static_folder, path)
+    else:
+        return send_from_directory(app.static_folder, 'index.html')
 
 def _calculate_fibbonacci(integer):
     if integer == 0:
