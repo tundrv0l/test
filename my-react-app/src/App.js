@@ -16,6 +16,7 @@ function App(){
           <Route path="/section2" element={<Section2 />} />
           <Route path="/form" element={<LogicForm />} />
           <Route path="/report-issue" element={<ReportIssue />} />
+          <Route path="*" element={<LandingPage />} />
         </Routes>
       </div>
     </Router>
