@@ -8,7 +8,7 @@ import ReportIssue from './components/ReportIssues';
 
 function App(){
   return(
-    <Router>
+    <Router basename='/'>
       <div className='App'>
         <Routes>
           <Route path="/" element={<LandingPage />} />

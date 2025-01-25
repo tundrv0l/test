@@ -13,7 +13,7 @@ function LogicForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/submit', {
+      const res = await axios.post('http://localhost:8080/submit', {
         input: inputValue,
       });
       setResponse(res.data.message);
