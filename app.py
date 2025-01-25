@@ -14,7 +14,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.environ.get('BUILD_DIR', os.path.join(current_dir, 'my-react-app', 'build'))
 
 app = Flask(__name__, static_folder=build_dir, static_url_path='/')
-CORS(app)
+CORS(app, origins=["https://test-production-5f70.up.railway.app"])
 
 @app.route('/submit', methods=['GET', 'POST'])
 def submit():
