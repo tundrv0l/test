@@ -14,7 +14,9 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 build_dir = os.environ.get('BUILD_DIR', os.path.join(current_dir, 'my-react-app', 'build'))
 print(f"Build directory: {build_dir}")
 
-print(os.path.isfile(f"{build_dir}/index.html"))
+html_path = os.path.join(build_dir, 'index.html')
+print(html_path)
+print(os.path.isfile(html_path))
 
 app = Flask(__name__, static_folder=build_dir, static_url_path='/')
 CORS(app)
