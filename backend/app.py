@@ -3,6 +3,9 @@
 from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
 
 # Read the build directory from the environment variable
 build_dir = os.environ.get('BUILD_DIR', os.path.abspath(os.path.join(os.path.dirname(__file__), '../my-react-app/build')))
@@ -30,10 +33,14 @@ def report_issue():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
-        return send_from_directory(app.static_folder, path)
-    else:
-        return send_from_directory(app.static_folder, 'index.html')
+    try:
+        if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
+            return send_from_directory(app.static_folder, path)
+        else:
+            return send_from_directory(app.static_folder, 'index.html')
+    except Exception as e:
+        logging.error(f"Error serving path {path}: {e}")
+        return "Internal Server Error", 500
 
 def _calculate_fibbonacci(integer):
     if integer == 0:
@@ -44,8 +51,8 @@ def _calculate_fibbonacci(integer):
         return _calculate_fibbonacci(integer - 1) + _calculate_fibbonacci(integer - 2)
 
 @app.errorhandler(404)
-def not_found():
-    print(f"404 error: {request.url}")
+def not_found(e):
+    logging.error(f"404 error: {request.url}")
     return send_from_directory(app.static_folder, 'index.html')
 
 if __name__ == '__main__':
