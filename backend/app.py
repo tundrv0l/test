@@ -5,7 +5,7 @@ from flask_cors import CORS
 import os
 
 
-build_dir = os.path.join(os.path.dirname(__file__), '../my-react-app/build')
+build_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../my-react-app/build'))
 print(build_dir)
 
 
