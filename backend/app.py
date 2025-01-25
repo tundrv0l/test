@@ -4,7 +4,12 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 
-app = Flask(__name__, static_folder=os.path.join(os.path.dirname(os.path.abspath(__file__)), '../my-react-app/build'), static_url_path='/')
+
+build_dir = os.path.join(os.path.dirname(__file__), '../my-react-app/build')
+print(build_dir)
+
+
+app = Flask(__name__, static_folder=build_dir, static_url_path='/')
 CORS(app)
 
 @app.route('/submit', methods=['POST'])
@@ -26,7 +31,7 @@ def report_issue():
 @app.route('/', defaults={'path': ''})
 @app.route('/<path:path>')
 def serve(path):
-    if path != "" and os.path.exists(app.static_folder + '/' + path):
+    if path != "" and os.path.exists(os.path.join(app.static_folder, path)):
         return send_from_directory(app.static_folder, path)
     else:
         return send_from_directory(app.static_folder, 'index.html')
