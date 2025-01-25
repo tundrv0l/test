@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Form, FormField, TextInput, Button, Text } from 'grommet';
 import axios from 'axios';
 
 function LogicForm() {
   const [inputValue, setInputValue] = useState('');
   const [response, setResponse] = useState('');
+
+  useEffect(() => {
+    console.log(`REACT_APP_API_URL: ${process.env.REACT_APP_API_URL}`);
+  }, []);
 
   const handleChange = (e) => {
     setInputValue(e.target.value);
