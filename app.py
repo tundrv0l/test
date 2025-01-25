@@ -8,8 +8,10 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 # Read the build directory from the environment variable
-build_dir = os.environ.get('BUILD_DIR', os.path.abspath(os.path.join(os.path.dirname(__file__), '../my-react-app/build')))
+build_dir = os.environ.get('BUILD_DIR', os.path.abspath(os.path.join(os.path.dirname(__file__), '/my-react-app/build')))
 print(f"Build directory: {build_dir}")
+
+print(os.path.isfile(f"{build_dir}/index.html"))
 
 app = Flask(__name__, static_folder=build_dir, static_url_path='/')
 CORS(app)
