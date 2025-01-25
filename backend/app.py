@@ -4,10 +4,9 @@ from flask import Flask, request, jsonify, send_from_directory
 from flask_cors import CORS
 import os
 
-
-build_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), '../my-react-app/build'))
-print(build_dir)
-
+# Read the build directory from the environment variable
+build_dir = os.environ.get('BUILD_DIR', os.path.abspath(os.path.join(os.path.dirname(__file__), '../my-react-app/build')))
+print(f"Build directory: {build_dir}")
 
 app = Flask(__name__, static_folder=build_dir, static_url_path='/')
 CORS(app)
