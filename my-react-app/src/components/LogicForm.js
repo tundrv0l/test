@@ -16,7 +16,7 @@ function LogicForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const apiUrl = `${process.env.REACT_APP_API_URL}/submit`;
+    const apiUrl = `http://0.0.0.0:8080/submit`;
     console.log(`API URL: ${apiUrl}`);
     try {
       const res = await axios.post(apiUrl, {
