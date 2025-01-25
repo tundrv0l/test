@@ -7,8 +7,11 @@ import logging
 
 logging.basicConfig(level=logging.DEBUG)
 
-# Read the build directory from the environment variable
-build_dir = os.environ.get('BUILD_DIR', os.path.abspath(os.path.join(os.path.dirname(__file__), '/my-react-app/build')))
+# Get the directory of the current file
+current_dir = os.path.dirname(os.path.abspath(__file__))
+
+# Construct the build directory path
+build_dir = os.environ.get('BUILD_DIR', os.path.join(current_dir, 'my-react-app', 'build'))
 print(f"Build directory: {build_dir}")
 
 print(os.path.isfile(f"{build_dir}/index.html"))
